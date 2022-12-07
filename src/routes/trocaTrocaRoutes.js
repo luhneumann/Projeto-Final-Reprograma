@@ -4,7 +4,7 @@ const router = express.Router();
 const controller = require('../controller/trocaTrocaController')
 
 router.get("/", controller.buscaTodas)
-router.get("/busca/cidade", controller.buscaPorCidade)
+// router.get("/busca/cidade", controller.buscaPorCidade)
 // router.get("/doador", controller.buscaDoador)
 // router.get("/recebem", controller.buscaQuemPrecisa)
 router.post("/nova", controller.novoCadastro)

@@ -50,24 +50,26 @@ const buscaTodas = async (req, res) => {
     }
 }
 
-// const buscaPorCidade = async (req, res) => {
-          
-//     try {   
-//         const { endereco } = req.query;
-//         const buscaCidade = await trocaTrocaSchema.find({endereco});
-//         if(endereco.cidade === req.query)
+const buscaPorCidade = async (req, res) => {
+   
+    const { endereco } = req.query;   
 
-//         console.log(buscaCidade)
-
-//         // if (doadores.length > 0)
-//         // res.status(200).json(doadores);
+    try {   
         
-//     } catch (error) {
-//         res.status(500).json({
-//             message: error.message
-//         })
-//     }
-// }
+        const buscaCidade = await trocaTrocaSchema.find({endereco});
+        if(endereco.cidade === req.query)
+
+        console.log(buscaCidade)
+
+        // if (doadores.length > 0)
+        // res.status(200).json(doadores);
+        
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })
+    }
+}
 
 const atualizaCadastro = async (req, res) => {
     const {
@@ -99,24 +101,25 @@ const atualizaCadastro = async (req, res) => {
     }    
 }
 
-// const deletaCadastro = async (req, res) => {
-//     const {email} = req.query
-//     try {
-//         const cadastro = await trocaTrocaSchema.find({email})
-//         console.log(cadastro)
+const deletaCadastro = async (req, res) => {
+    const {email} = await req.query
 
-//         await cadastro.delete()
+    const cadastro = await trocaTrocaSchema.find({email})
+        console.log(cadastro)
+
+    try {
+        await cadastro.delete()
       
-//         res.status(200).json({
-//             mensagem: "Cadastro removido com sucesso"
-//         })
+        res.status(200).json({
+            mensagem: "Cadastro removido com sucesso"
+        })
         
-//     } catch (error) {
-//         res.status(400).json({
-//             mensagem: error.message
-//         })
-//     }    
-// }
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }    
+}
 
 
 module.exports = {
@@ -124,7 +127,7 @@ module.exports = {
     buscaTodas,
     // buscaDoador,
     atualizaCadastro,
-    // deletaCadastro,
+    deletaCadastro,
     // buscaPorCidade
 };
 
