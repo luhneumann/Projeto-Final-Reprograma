@@ -10,7 +10,6 @@ const novoCadastro = async (req, res) => {
             para_doar,
             preciso_de
         } = req.body
-
         
         const cadastro = new trocaTrocaSchema({
             nome:nome,
@@ -35,24 +34,98 @@ const novoCadastro = async (req, res) => {
     }
 }
 
-// const buscaTodas = async (req, res) => {
-//     try {
-//         const todasUsuarias = await trocaTrocaSchema.find()
+const buscaTodas = async (req, res) => {
+    try {
+        const todasUsuarias = await trocaTrocaSchema.find()
 
-//         res.status(200).json({
-//             todasUsuarias,
-//             message:"Lista de usuárias carregadas com sucesso",
-//         })
+        res.status(200).json({
+            todasUsuarias,
+            message:"Lista de usuárias carregadas com sucesso",
+        })
+        
+    } catch (error) {
+        res.status(500).json({
+            mensagem:error.message
+        })
+    }
+}
+
+// const buscaPorCidade = async (req, res) => {
+          
+//     try {   
+//         const { endereco } = req.query;
+//         const buscaCidade = await trocaTrocaSchema.find({endereco});
+//         if(endereco.cidade === req.query)
+
+//         console.log(buscaCidade)
+
+//         // if (doadores.length > 0)
+//         // res.status(200).json(doadores);
         
 //     } catch (error) {
 //         res.status(500).json({
-//             mensagem:error.message
+//             message: error.message
 //         })
 //     }
 // }
 
+const atualizaCadastro = async (req, res) => {
+    const {
+        email,
+        telefone,
+        endereco,
+        para_doar,
+        preciso_de
+    } = req.body
+
+    const {id} = req.params
+
+    try {
+        const trocaTroca = await trocaTrocaSchema.findOneAndUpdate({id},{
+            email,
+            telefone,
+            endereco,
+            para_doar,
+            preciso_de
+        })    
+
+        await trocaTroca.save()
+        res.status(200).json({mensagem: "Cadastro atualizado com sucesso"})
+
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        }) 
+    }    
+}
+
+// const deletaCadastro = async (req, res) => {
+//     const {email} = req.query
+//     try {
+//         const cadastro = await trocaTrocaSchema.find({email})
+//         console.log(cadastro)
+
+//         await cadastro.delete()
+      
+//         res.status(200).json({
+//             mensagem: "Cadastro removido com sucesso"
+//         })
+        
+//     } catch (error) {
+//         res.status(400).json({
+//             mensagem: error.message
+//         })
+//     }    
+// }
+
+
 module.exports = {
-    novoCadastro
+    novoCadastro,
+    buscaTodas,
+    // buscaDoador,
+    atualizaCadastro,
+    // deletaCadastro,
+    // buscaPorCidade
 };
 
 

@@ -50,9 +50,7 @@ const trocaTrocaSchema = new mongoose.Schema({
             },
         },
         roupas:{
-            tamanho:{
-                type: String,
-            }
+            type: String, 
         }, 
         calcados:{
             tamanho:{
@@ -81,9 +79,8 @@ const trocaTrocaSchema = new mongoose.Schema({
             },
         },
         roupas:{
-            tamanho:{
-                type: String
-            }
+            type: String
+        
         }, 
         calcados:{
             tamanho:{
@@ -104,4 +101,4 @@ const trocaTrocaSchema = new mongoose.Schema({
         
 }, {timestamp: true})
 
-module.exports = mongoose.model("usuaria", trocaTrocaSchema);
+module.exports = mongoose.model("trocaTroca", trocaTrocaSchema);
