@@ -10,7 +10,7 @@ const trocaTrocaRoutes = require('./routes/trocaTrocaRoutes')
 app.use(cors());
 app.use(express.json());
 
-app.use("/trocatroca", trocaTrocaRoutes).send("Seja bem vinda")
+app.use("/trocatroca", trocaTrocaRoutes)
 database.connect();
 
 module.exports = app
