@@ -102,13 +102,13 @@ const atualizaCadastro = async (req, res) => {
 }
 
 const deletaCadastro = async (req, res) => {
-    const {email} = await req.query
+    const {email} = req.query;
 
     const cadastro = await trocaTrocaSchema.find({email})
         console.log(cadastro)
 
     try {
-        await cadastro.delete()
+        await cadastro.delete();
       
         res.status(200).json({
             mensagem: "Cadastro removido com sucesso"
