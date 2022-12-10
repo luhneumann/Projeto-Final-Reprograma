@@ -9,13 +9,8 @@ const trocaTrocaSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    email: {
-        type: String,
-        required: true
-    },
-    telefone: {
-        type: Number,
-        required: true
+    telefone:{
+        type: Number
     },
     endereco:{
         rua: {
@@ -40,64 +35,18 @@ const trocaTrocaSchema = new mongoose.Schema({
         }
     },
     para_doar:{
-        
-        fraldas:{
-            marca:{
-                type: String,
-            },
-            tamanho:{
-                type: String,
-            },
-        },
-        roupas:{
-            type: String, 
-        }, 
-        calcados:{
-            tamanho:{
-                type: String,
-            }
-        },   
-        acessorios: {
-            type: Array,
-        },
-        brinquedos: {
-            type: Array,
-        },
-        carrinho: {
-            type: String,
-        }
-
+       type:[String],
+       default:[] 
     },
 
     preciso_de:{
-        fraldas:{
-            marca:{
-                type: String,
-            },
-            tamanho:{
-                type: String,
-            },
-        },
-        roupas:{
-            type: String
-        
-        }, 
-        calcados:{
-            tamanho:{
-                type: String
-            }
-        },   
-        acessorios: {
-            type: Array
-        },
-        brinquedos: {
-            type: Array
-        },
-        carrinho: {
-            type: String
-        }
-
+        type:[String],
+        default:[]
     }
+
+
+          
+    
         
 }, {timestamp: true})
 
