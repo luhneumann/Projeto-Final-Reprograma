@@ -1,0 +1,500 @@
+{
+   "openapi": "3.0.0",
+   "info":{
+        "title": "Troca-Troca das Gurias",
+        "description": "Essa API tem como objetivo permitir a troca de contatos entre mulheres que querem doar e precisam receber itens de maternidade",
+        "termsOfService": "http://localhost:7575/terms",
+        "contact": {
+            "email": "luanafneumann.22@gmail.com"
+        },
+        "version": "1.0.0"
+    },
+
+    "servers":[
+        {
+            "url":"http://localhost:7575/trocatroca",
+            "description": "API de teste"
+        }
+    ],
+    "paths": {
+        "/nova": {
+            "post": {
+                "summary": "Criação de cadastro de troca",
+                "description": "Essa rota cria uma nova lista de informações do usuário e de itens para troca",
+                "tags": ["Dados de troca"],
+                "security":[{ "bearerAuth":[] }],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema" : {
+                               "$ref": "#/components/schemas/cadastroDeTroca"
+                            }   
+                        }
+                    }
+                },
+                "responses": {
+                    "201":{
+                        "description": "cadastro realizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeTroca"
+                                    
+                                },
+                                "examples": {
+                                    "cadastroDeTroca":{
+                                        "value": {
+                                            "name": "Luana Neumann",
+                                            "telefone": "34852258",
+                                            "endereco": {
+                                                "rua":"Rua Domingos Crescêncio",
+                                                "numero": "247",
+                                                "bairro": "Santana",
+                                                "cidade": "Porto Alegre",
+                                                "estado": "RS"
+                                            },
+                                            "para_doar": "Roupas RN, carrinho",
+                                            "preciso_de": "Roupas G, Sling"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400":{
+                        "description": "Bad Request"
+                    },
+                    "401":{
+                        "description": "Você não possui autorização para executar essa ação"
+                    }
+                }  
+            }
+        },
+        "/lista":{
+            "get":{
+                "summary": "Busca todos os cadastros disponíveis",
+                "description": "Essa rota retorna a lista completa de cadastros disponíveis para trocas",
+                "tags":["Dados de troca"],
+                "security":[{ "bearerAuth":[]}],
+                "responses": {
+                    "200":{
+                        "description": "Lista de usuárias carregadas com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeTroca"
+                                }    
+                            }                         
+                        }    
+                    },
+                    "500": {
+                        "description":"message: error.message"
+                    },
+                    "401": {
+                        "description":"Você não possui autorização para executar essa ação"
+                    }
+                }                      
+            }
+        },
+        "/busca/cidade":{
+            "get":{
+                "summary": "Busca cadastros pela cidade de interesse",
+                "description": "Essa rota retorna a lista de cadastros disponíveis em uma cidade de interesse",
+                "tags":["Dados de troca"],
+                "security":[{ "bearerAuth":[]}],
+                "parameters": [
+                    {
+                        "name":"cidade",
+                        "in":"query",
+                        "description": "Cidade de residência do usuário",
+                        "required": true,
+                        "schema":{
+                            "type":"string"                            
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Há trocatroca das gurias na cidade escolhida. Observe a lista a seguir:",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeTroca"
+                                }    
+                            }                         
+                        }    
+                    },
+                    "401":{
+                        "description":"Você não possui autorização para executar essa ação"
+                    },
+                    "404":{
+                        "description": "Não há nenhuma troca disponível nessa cidade"
+                    },
+                    "500":{
+                        "description": "message: error.message"
+                    }
+                }
+            }
+        },
+        "/busca/doador":{
+            "get":{
+                "summary": "Busca itens de interesse em cadastros de doadores",
+                "description": "Essa rota retorna determinados itens disponíveis nos cadastros dos doadores",
+                "tags":["Dados de troca"],
+                "security":[{ "bearerAuth":[]}],
+                "parameters": [
+                    {
+                        "name":"para_doar",
+                        "in":"query",
+                        "description": "Itens disponiveis para doação",
+                        "required": true,
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeTroca"
+                                }                         
+                            }
+                        }        
+                    },
+                    "401":{
+                        "description":"Você não possui autorização para executar essa ação"
+                    },                    
+                    "500":{
+                        "description": "message: error.message"
+                    }
+                }
+
+            }
+        },
+        "/busca/recebem":{
+            "get":{
+                "summary": "Busca itens de interesse nos cadastros de usuárias que precisam de doações",
+                "description": "Essa rota retorna cadastros de pessoas interessadas em receber determinados itens",
+                "tags":["Dados de troca"],
+                "security":[{ "bearerAuth":[]}],
+                "parameters": [
+                    {
+                        "name":"preciso_de",
+                        "in":"query",
+                        "description": "Itens que os usuários estão interessados em receber",
+                        "required": true,
+                        "schema":{
+                            "type":"array",
+                            "items":{
+                                "type":"string"
+                            }
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeTroca"
+                                }                         
+                            }
+                        }        
+                    },
+                    "401":{
+                        "description":"Você não possui autorização para executar essa ação"
+                    },
+                    "500":{
+                        "description": "message: error.message"
+                    }
+                }
+
+            }
+        },
+        "/{id}":{
+            "patch":{
+                "summary": "Busca um cadastro pelo seu ID e permite sua atualização",
+                "description": "Essa rota retorna cadastros a partir de um ID e faz atualizações nos dados cadastrais",
+                "tags":["Dados de troca"],
+                "security":[{ "bearerAuth":[]}],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema" : {
+                               "$ref": "#/components/schemas/cadastroDeTroca"
+                            }   
+                        }
+                    }
+                },
+                "parameters": [
+                    {
+                        "name":"id",
+                        "in":"path",
+                        "description": "número de identificação de cada cadastro",
+                        "required": true,
+                        "schema":{
+                            "type":"string"
+                        }                        
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastro atualizado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeTroca"
+                                },
+                                "examples": {
+                                    "cadastroDeTroca":{
+                                        "value": {                                    
+                                            "telefone": "34852258",
+                                            "para_doar": "Roupas grandes, chupeta",
+                                            "preciso_de": " "
+                                        }
+                                    }
+                                }                         
+                            }
+                        }        
+                    },
+                    "401":{
+                        "description":"Você não possui autorização para executar essa ação"
+                    },
+                    "400":{
+                        "description": "message: error.message"
+                    }
+                }
+            }
+        },                   
+        "/create":{
+            "post":{
+                "summary": "Cria um novo cadastro para acesso à plataforma",
+                "description": "Essa rota cria cadastros dos usuários para acessar a plataforma por meio de login",
+                "tags":["Acesso do usuário"],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema" : {
+                               "$ref": "#/components/schemas/cadastroDeUsuario"
+                            }   
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Usuário cadastrado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeUsuario"
+                                },
+                                "examples": {
+                                    "cadastroDeUsuario":{
+                                        "value": {
+                                            "name": "Luana Neumann",
+                                            "cpf": "3514785514",
+                                            "email": "email247@teste2",
+                                            "password": "lalala3"
+                                        }                             
+                                    }                       
+                                }
+                            }
+                        }        
+
+                    },
+                    "406":{
+                        "description":"Cpf inserido já consta no nosso cadastro"
+                    },
+                    "409":{                        
+                        "description":"Email inserido já consta em nosso cadastro"                                            
+                    },
+                    "500":{
+                        "description": "message:error.message"
+                    }                   
+                    
+                }
+            }
+        },
+        "/login":{
+            "post":{
+                "summary": "Faz login e obtem acesso à aplicação",
+                "description": "Essa rota cria executa o login do usuário para que ele tenha acesso à aplicação ",
+                "tags":["Acesso do usuário"],
+                "security":[{ "bearerAuth":[]}],
+                "requestBody":{
+                    "content": {
+                        "application/json":{
+                            "schema" : {
+                               "$ref": "#/components/schemas/cadastroDeUsuario"
+                            },
+                            "examples": {
+                                "cadastroDeTroca":{
+                                    "value": {                                                                               
+                                        "email": "email2@teste",
+                                        "password": "lalala"
+                                    }                             
+                                }                       
+                            }   
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Login efetuado com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeUsuario"
+                                }                         
+                            }
+                        }        
+                    },
+                    "404":{
+                        "description":"Usuário não encontrado"
+                    },
+                    "401":{                        
+                        "description":"Senha inválida"                                            
+                    },
+                    "500":{
+                        "description": "message:error.message"
+                    }                   
+                }
+            }          
+        },
+        "/remove":{
+            "delete":{
+                "summary": "Deleta cadastro de acesso à aplicação",
+                "description": "Essa rota deleta o cadastro principal de acesso do usuário à aplicação ",
+                "tags":["Acesso do usuário"],
+                "security":[{ "bearerAuth":[]}],
+                "parameters": [
+                    {
+                        "name":"email",
+                        "in":"query",
+                        "description": "email cadastrado do usuário",
+                        "required": true,
+                        "schema":{
+                            "type":"string"                            
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastro removido com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeUsuario"
+                                }                         
+                            }
+                        }        
+                    },                    
+                    "400":{
+                        "description": "message:error.message"
+                    }                   
+                }
+            }
+           
+        }
+    },
+    "components": {
+        "schemas": {
+            "cadastroDeTroca": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "number"
+                    },
+                    "nome": {
+                        "type": "string",
+                        "required": ["true"]
+                    },
+                    "telefone": {
+                        "type": "number",
+                        "required": ["true"]
+                    },
+                    "endereco": {
+                        "$ref":"#/components/schemas/endereco"
+                    },
+                    "para_doar": {
+                        "type": "string"                         
+                    },
+                    "preciso_de": {
+                        "type": "string"
+                    }
+                    
+                }
+            },
+            "cadastroDeUsuario":{
+                "type":"object",
+                "properties": {
+                    "name": {
+                        "type": "string",
+                        "required": ["true"] 
+                    },
+                    "email": {
+                        "type": "string",
+                        "required": ["true"]
+                    },
+                    "cpf": {
+                        "type": "number",
+                        "required": ["true"]                        
+                    },
+                    "password": {
+                        "type": "string",
+                        "required": ["true"]                        
+                    }
+                }
+            },
+            "endereco":{
+                "type": "object",
+                "properties": {
+                    "rua":{
+                        "type": "string",
+                        "required": ["true"]
+                    },
+                    "numero":{
+                        "type": "number",
+                        "required": ["true"]
+                    },
+                    "bairro":{
+                        "type": "string",
+                        "required": ["true"]
+                    },
+                    "cidade":{
+                        "type": "string",
+                        "required": ["true"]
+                    },
+                    "estado":{
+                        "type": "string",
+                        "required": ["true"]
+                    }
+                }
+            }
+        },
+        "securitySchemes": {
+            "bearerAuth":{
+                "type": "http",
+                "scheme": "bearer",
+                "bearerFormat": "JWT"
+            }
+        }
+    }
+    
+}

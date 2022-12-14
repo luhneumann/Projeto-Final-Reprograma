@@ -10,7 +10,9 @@ const trocaTrocaSchema = new mongoose.Schema({
         required: true
     },
     telefone:{
-        type: Number
+        type: Number,
+        required: true
+
     },
     endereco:{
         rua: {

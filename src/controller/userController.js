@@ -13,7 +13,7 @@ const createUser = async (req, res) => {
     }
     const cpfExists = await userSchema.exists({cpf:req.body.cpf})
     if(cpfExists){
-        return res.status(409).send({
+        return res.status(406).send({
             message: 'Cpf inserido já consta no nosso cadastro'
         })
     }
@@ -44,7 +44,7 @@ const deletaCadastro = async (req, res) => {
         const cadastroRemovido = await userSchema.deleteOne({email})
              
         res.status(200).json({
-            cadastroRemovido,           
+                     
             mensagem: "Cadastro removido com sucesso"
         })
         
@@ -54,6 +54,9 @@ const deletaCadastro = async (req, res) => {
         })
     }    
 }
+
+// criar rota de atualização de cadastro inserindo 
+//limitação do cpf "Não é possível alterar esse dado"
 module.exports = {
     createUser,
     deletaCadastro,

@@ -7,7 +7,7 @@ const authController = require ('../controller/authController')
 
 const { checkAuth } = require('../middleware/auth')
 
-router.get("/", checkAuth, controller.buscaTodas)
+router.get("/lista", checkAuth, controller.buscaTodas)
 router.get("/busca/cidade",checkAuth, controller.buscaPorCidade)
 router.get("/busca/doador",checkAuth, controller.buscaDoacoes)
 router.get("/busca/recebem",checkAuth, controller.buscaQuemPrecisa)

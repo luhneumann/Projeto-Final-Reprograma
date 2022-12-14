@@ -62,7 +62,7 @@ const buscaPorCidade = async (req, res) => {
             })
         }
         res.status(200).json({
-            message: "Em ${cidade} há trocatroca das gurias. Observe a lista a seguir:",
+            message: "Há trocatroca das gurias na cidade escolhida. Observe a lista a seguir:",
             buscaCidade
                       
         })
