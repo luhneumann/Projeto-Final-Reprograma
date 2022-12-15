@@ -1,9 +1,15 @@
 const mongoose = require ('mongoose');
+const userSchema = require('./userSchema');
 
 const trocaTrocaSchema = new mongoose.Schema({
     id: {
         type: mongoose.Types.ObjectId,
         default: mongoose.Types.ObjectId
+    },
+    userId: {
+        type: mongoose.Types.ObjectId,
+        required: true,
+        ref: "user"
     },
     nome: {
         type: String,

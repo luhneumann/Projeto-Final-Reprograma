@@ -334,8 +334,7 @@
                 "summary": "Faz login e obtem acesso à aplicação",
                 "description": "Essa rota cria executa o login do usuário para que ele tenha acesso à aplicação ",
                 "tags":["Acesso do usuário"],
-                "security":[{ "bearerAuth":[]}],
-                "requestBody":{
+                    "requestBody":{
                     "content": {
                         "application/json":{
                             "schema" : {

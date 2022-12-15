@@ -4,6 +4,7 @@ const novaTroca = async (req, res) => {
     try {
         const {
             nome,
+            userId,
             telefone,
             endereco,
             para_doar,
@@ -12,6 +13,7 @@ const novaTroca = async (req, res) => {
         
         const dadosParaTroca = new trocaTrocaSchema({
             nome:nome,
+            userId: userId,
             telefone: telefone,
             endereco: endereco,
             para_doar: para_doar,
@@ -55,7 +57,7 @@ const buscaPorCidade = async (req, res) => {
     try {           
         const buscaCidade = await trocaTrocaSchema.find({
             "endereco.cidade": cidade
-        })
+        }).populate("userId")
         if (!buscaCidade) {
             return res.status(404).json({
                 message: "Não há nenhuma troca disponível nessa cidade"

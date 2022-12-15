@@ -36,7 +36,7 @@ const createUser = async (req, res) => {
     }    
 }
 
-
+//Adicionar "Não foi encontrado cadastro com esse email"
 const deletaCadastro = async (req, res) => {
     const {email} = req.query;
 
