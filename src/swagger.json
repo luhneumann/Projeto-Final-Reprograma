@@ -98,6 +98,47 @@
                 }                      
             }
         },
+        "/busca/{id}":{
+            "get":{
+                "summary": "Busca de um cadastro de troca pelo ID",
+                "description": "Essa rota retorna o cadastro com um ID específico",
+                "tags": ["Dados de troca"],
+                "security": [{ "bearerAuth":[]}],
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "path",
+                        "description": "Numero de identificação do usuário",
+                        "required": true,
+                        "schema":{
+                            "type":"string"                            
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK:",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeTroca"
+                                }    
+                            }                         
+                        }    
+                    },
+                    "401":{
+                        "description":"Você não possui autorização para executar essa ação"
+                    },
+                    "404":{
+                        "description": "Não há nenhuma troca disponível nessa cidade"
+                    },
+                    "500":{
+                        "description": "message: error.message"
+                    }
+                }
+            }
+        },
         "/busca/cidade":{
             "get":{
                 "summary": "Busca cadastros pela cidade de interesse",

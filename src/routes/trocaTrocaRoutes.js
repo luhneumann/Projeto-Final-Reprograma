@@ -8,13 +8,14 @@ const authController = require ('../controller/authController')
 const { checkAuth } = require('../middleware/auth')
 
 
-router.get("/lista", checkAuth, controller.buscaTodas)
-router.get("/:id", checkAuth, controller.buscaPorID)
+router.get("/lista", controller.buscaTodas)
+router.get("/busca/:id", controller.buscaPorID)
 router.get("/busca/cidade",controller.buscaPorCidade)
-router.get("/busca/doador",checkAuth, controller.buscaDoacoes)
-router.get("/busca/recebem",checkAuth, controller.buscaQuemPrecisa)
-router.post("/nova", checkAuth, controller.novaTroca)
-router.patch("/:id", checkAuth, controller.atualizaCadastro)
+router.get("/busca/doador", controller.buscaDoacoes)
+router.get("/busca/recebem", controller.buscaQuemPrecisa)
+router.post("/nova", controller.novaTroca)
+router.patch("/:id", controller.atualizaCadastro)
+router.delete("/delete/:id",controller.deletaCadastroTroca)
 
 
 

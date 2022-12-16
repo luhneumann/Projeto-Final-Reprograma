@@ -52,11 +52,15 @@ const buscaTodas = async (req, res) => {
 }
 
 const buscaPorID = async (req, res) => {
-    
+   
     try {
         const findById = await trocaTrocaSchema.findById(req.params.id)
         console.log(findById)
-
+        if(!findById){
+            return res.status(404).json({
+                message: "Cadastro não encontrado"
+            })
+        }
         res.status(200).json({
             findById
         })
@@ -163,6 +167,29 @@ const atualizaCadastro = async (req, res) => {
         }) 
     }    
 }
+const deletaCadastroTroca = async (req, res) => {
+        const {id} = req.params
+        try {
+        const cadastroRemovido = await trocaTrocaSchema.findOne({id})
+            if (!cadastroRemovido){
+                return  res.status(404).json({                     
+                    mensagem: "Cadastro não encontrado"
+                })
+            }
+            cadastroRemovido.delete()       
+
+        res.status(200).json({                     
+            mensagem: "Cadastro removido com sucesso"
+        })
+        
+    } catch (error) {
+        res.status(400).json({
+            mensagem: error.message
+        })
+    }    
+}
+
+
 
 
 
@@ -174,7 +201,8 @@ module.exports = {
     atualizaCadastro,
     buscaPorCidade,
     buscaQuemPrecisa,
-    buscaPorID
+    buscaPorID,
+    deletaCadastroTroca
 };
 
 
