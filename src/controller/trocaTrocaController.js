@@ -50,10 +50,30 @@ const buscaTodas = async (req, res) => {
     }
 }
 
+const buscaPorID = async (req, res) => {
+    
+    try {
+        const findById = await trocaTrocaSchema.findById(req.params.id)
+        console.log(findById)
+
+        res.status(200).json({
+            findById
+        })
+
+        
+    } catch (error) {
+        res.status(500).json({
+            message: error.message
+        })       
+    }
+}
+
 const buscaPorCidade = async (req, res) => {
    
     const { cidade } = req.query
-    console.log(req.query)
+    let query = { }
+    if(cidade) query.cidade = RegExp(cidade, 'i')
+
     try {           
         const buscaCidade = await trocaTrocaSchema.find({
             "endereco.cidade": cidade
@@ -153,7 +173,8 @@ module.exports = {
     buscaDoacoes,
     atualizaCadastro,
     buscaPorCidade,
-    buscaQuemPrecisa
+    buscaQuemPrecisa,
+    buscaPorID
 };
 
 

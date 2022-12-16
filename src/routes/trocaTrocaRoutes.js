@@ -9,11 +9,13 @@ const { checkAuth } = require('../middleware/auth')
 
 
 router.get("/lista", checkAuth, controller.buscaTodas)
+router.get("/:id", checkAuth, controller.buscaPorID)
 router.get("/busca/cidade",controller.buscaPorCidade)
 router.get("/busca/doador",checkAuth, controller.buscaDoacoes)
 router.get("/busca/recebem",checkAuth, controller.buscaQuemPrecisa)
 router.post("/nova", checkAuth, controller.novaTroca)
 router.patch("/:id", checkAuth, controller.atualizaCadastro)
+
 
 
 router.delete("/remove", userController.deletaCadastro )
