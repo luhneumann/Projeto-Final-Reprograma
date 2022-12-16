@@ -420,6 +420,10 @@
                     "id": {
                         "type": "number"
                     },
+                    "userId": {
+                        "type": "string",
+                        "required": ["true"]                        
+                    },    
                     "nome": {
                         "type": "string",
                         "required": ["true"]

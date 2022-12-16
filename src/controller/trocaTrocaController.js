@@ -14,6 +14,7 @@ const novaTroca = async (req, res) => {
         const dadosParaTroca = new trocaTrocaSchema({
             nome:nome,
             userId: userId,
+            id: userId,
             telefone: telefone,
             endereco: endereco,
             para_doar: para_doar,
@@ -87,9 +88,7 @@ const buscaPorCidade = async (req, res) => {
             message: "Há trocatroca das gurias na cidade escolhida. Observe a lista a seguir:",
             buscaCidade
                       
-        })
-               
-                
+        })               
         
     } catch (error) {
         res.status(500).json({
@@ -106,6 +105,7 @@ const buscaDoacoes = async (req, res) => {
     try {
         const doadoresEncontrados = await trocaTrocaSchema.find(query)  
         if(doadoresEncontrados.length > 0)
+
             return res.status(200).json({
             doadoresEncontrados
         })

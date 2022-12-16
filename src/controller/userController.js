@@ -41,10 +41,15 @@ const deletaCadastro = async (req, res) => {
     const {email} = req.query;
 
     try {
-        const cadastroRemovido = await userSchema.deleteOne({email})
-             
-        res.status(200).json({
-                     
+        const cadastroRemovido = await userSchema.findOne({email})
+            if (!cadastroRemovido){
+                return  res.status(404).json({                     
+                    mensagem: "Cadastro não encontrado"
+                })
+            }
+        cadastroRemovido.delete()       
+
+        res.status(200).json({                     
             mensagem: "Cadastro removido com sucesso"
         })
         
