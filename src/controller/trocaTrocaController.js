@@ -4,7 +4,7 @@ const novaTroca = async (req, res) => {
     try {
         const {
             nome,
-            // userId,
+            userId,
             telefone,
             endereco,
             para_doar,
@@ -13,8 +13,8 @@ const novaTroca = async (req, res) => {
         
         const dadosParaTroca = new trocaTrocaSchema({
             nome:nome,
-            // userId: userId,
-            // id: userId,
+            userId: userId,
+            id: userId,
             telefone: telefone,
             endereco: endereco,
             para_doar: para_doar,
@@ -168,6 +168,7 @@ const atualizaCadastro = async (req, res) => {
         }) 
     }    
 }
+
 const deletaCadastroTroca = async (req, res) => {
         const {id} = req.params
         try {

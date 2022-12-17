@@ -9,10 +9,11 @@ const authController = require ('../controller/authController')
 
 
 router.get("/lista", controller.buscaTodas)
-router.get("/busca/:id", controller.buscaPorID)
-router.get("/busca/cidade",controller.buscaPorCidade)
+
+router.get("/busca/cidade", controller.buscaPorCidade)
 router.get("/busca/doador", controller.buscaDoacoes)
 router.get("/busca/recebem", controller.buscaQuemPrecisa)
+router.get("/busca/:id", controller.buscaPorID)
 router.post("/nova", controller.novaTroca)
 router.patch("/:id", controller.atualizaCadastro)
 router.delete("/delete/:id",controller.deletaCadastroTroca)
