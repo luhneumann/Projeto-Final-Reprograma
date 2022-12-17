@@ -77,8 +77,6 @@ gera-se o consumo mais consciente de produtos que tradicionalmente são pouco us
 | :---------- | :--------- | :---------------------------------- |
 |  id    | string | ID do usuário - Obrigatório |
 
-
-
 #
 
 
