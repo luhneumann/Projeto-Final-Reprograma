@@ -64,6 +64,19 @@ gera-se o consumo mais consciente de produtos que tradicionalmente são pouco us
 | Parâmetro   | Tipo       | Descrição                           |
 | :---------- | :--------- | :---------------------------------- |
 |     Sem parâmetro  | ----- | Retorna lista de todos cadastros de troca |
+ 
+
+#
+#### Retorna os cadastros pelo Id
+
+```http
+  GET /trocatroca/busca/:id
+```
+
+| Parâmetro   | Tipo       | Descrição                           |
+| :---------- | :--------- | :---------------------------------- |
+|  id    | string | ID do usuário - Obrigatório |
+
 
 
 #
@@ -89,7 +102,7 @@ gera-se o consumo mais consciente de produtos que tradicionalmente são pouco us
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| para_doar | `string` | itens para doação |
+| para_doar | `string` | itens para doação - Obrigatório |
 
 #
 
@@ -101,7 +114,7 @@ gera-se o consumo mais consciente de produtos que tradicionalmente são pouco us
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| preciso_de | `string` | Itens que estão sendo solicitados|
+| preciso_de | `string` | Itens que estão sendo solicitados - Obrigatório|
 
 #
 
@@ -113,7 +126,7 @@ gera-se o consumo mais consciente de produtos que tradicionalmente são pouco us
 
 | Parâmetro   | Tipo       | Descrição                                   |
 | :---------- | :--------- | :------------------------------------------ |
-| ID | `string` | ID do item a ser atualizado |
+| ID | `string` | ID do item a ser atualizado - Obrigatório|
 
 #
 

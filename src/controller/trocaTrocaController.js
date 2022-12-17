@@ -4,7 +4,7 @@ const novaTroca = async (req, res) => {
     try {
         const {
             nome,
-            userId,
+            // userId,
             telefone,
             endereco,
             para_doar,
@@ -13,8 +13,8 @@ const novaTroca = async (req, res) => {
         
         const dadosParaTroca = new trocaTrocaSchema({
             nome:nome,
-            userId: userId,
-            id: userId,
+            // userId: userId,
+            // id: userId,
             telefone: telefone,
             endereco: endereco,
             para_doar: para_doar,
@@ -52,9 +52,9 @@ const buscaTodas = async (req, res) => {
 }
 
 const buscaPorID = async (req, res) => {
-   
+    const {id} = req.params
     try {
-        const findById = await trocaTrocaSchema.findById(req.params.id)
+        const findById = await trocaTrocaSchema.findOne({id})
         console.log(findById)
         if(!findById){
             return res.status(404).json({
@@ -81,8 +81,9 @@ const buscaPorCidade = async (req, res) => {
 
     try {           
         const buscaCidade = await trocaTrocaSchema.find({
-            "endereco.cidade": cidade
-        }).populate("userId")
+            "endereco.cidade": cidade            
+        })
+        console.log(buscaCidade)
         if (!buscaCidade) {
             return res.status(404).json({
                 message: "Não há nenhuma troca disponível nessa cidade"

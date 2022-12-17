@@ -2,7 +2,7 @@ const jwt = require('jsonwebtoken');
 const SECRET = process.env.SECRET;
 
 exports.checkAuth = (req, res, next) => {
-    const {id} = req.params
+    // const {id} = req.params
     
     const authHeader = req.get('authorization');
     if (!authHeader) {
@@ -20,18 +20,18 @@ exports.checkAuth = (req, res, next) => {
     }
 
     try {
-        const payload = jwt.decode(token)
+        // const payload = jwt.decode(token)
         jwt.verify(token, SECRET, (err) => {
             if(err) {
                 return res.status(401).send({
                     message:"Acesso não autorizado"
                 })
             }
-            if(payload.userId != id) {
-                return res.status(403).send({
-                    message:"Acesso não autorizado"
-            })
-            }
+            // if(payload.userId != id) {
+            //     return res.status(403).send({
+            //         message:"Acesso não autorizado"
+            // })
+            // }
             next();
         })
         

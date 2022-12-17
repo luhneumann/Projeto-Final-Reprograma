@@ -5,7 +5,7 @@ const controller = require('../controller/trocaTrocaController')
 const userController = require('../controller/userController')
 const authController = require ('../controller/authController')
 
-const { checkAuth } = require('../middleware/auth')
+// const { checkAuth } = require('../middleware/auth')
 
 
 router.get("/lista", controller.buscaTodas)

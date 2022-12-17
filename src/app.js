@@ -12,6 +12,7 @@ const swaggerDocs = require('./swagger.json')
 app.use(cors());
 app.use(express.json());
 
+app.get("/" , (req, res)=> res.status(200).send("Seja Bem-vinda") )
 
 app.use("/trocatroca", trocaTrocaRoutes)
 app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs))

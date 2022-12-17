@@ -319,7 +319,47 @@
                     }
                 }
             }
-        },                   
+        }, 
+        "/delete/{id}":{
+            "delete":{
+                "summary": "Busca um cadastro pelo Id e deleta",
+                "description": "Essa rota deleta um cadastro de um determinado id",
+                "tags": ["Dados de troca"],
+                "security": [{ "bearerAuth":[]}],
+                "parameters": [
+                    {
+                        "name": "ID",
+                        "in": "path",
+                        "description": "Numero de identificação do usuário",
+                        "required": true,
+                        "schema":{
+                            "type":"string"                            
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Cadastro removido com sucesso",
+                        "content": {
+                            "application/json": {
+                                "schema":{
+                                    "type":"object",
+                                    "$ref": "#/components/schemas/cadastroDeTroca"
+                                }    
+                            }                         
+                        }    
+                    },
+                    "400":{
+                        "description":"message: error.message"
+                    },
+                    "404":{
+                        "description": "Cadastro não encontrado"
+                    }
+                    
+                }
+
+            }
+        },                  
         "/create":{
             "post":{
                 "summary": "Cria um novo cadastro para acesso à plataforma",
